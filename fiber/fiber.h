@@ -16,7 +16,7 @@ namespace sylar {
 
 //继承至enable_shared_from_this,实现协程共享
 
-class Fiber : public std::enable_shared_from_this<Fiber>{
+class Fiber : public std::enable_shared_from_this<Fiber> {
 
 public:
 
