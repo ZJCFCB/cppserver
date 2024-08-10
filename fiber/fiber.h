@@ -46,7 +46,7 @@ public :
 
    //将当前协程切换到执行状态
    //当前协程running，前一个协程ready
-   void resum();
+   void resume();
 
    //当前协程让出cpu
    void yield();
@@ -58,13 +58,17 @@ public :
 
    //获取协程状态
    State getStatus() const {
-    return m_status;
+    return m_state;
    }
 
 public :
 
    //设置当前正在运行的协程
    static void SetThis(Fiber *f);
+
+   //设置main协程
+
+   static void SetSchedulerFiber(Fiber *f);
 
    //返回当前线程正在执行的协程
    static Fiber::ptr GetThis();
@@ -83,7 +87,7 @@ private :
 
    uint64_t m_stacksize; //协程栈大小
 
-   State m_status; //协程状态
+   State m_state; //协程状态
 
    ucontext_t m_ctx; //协程上下文
 
@@ -91,7 +95,7 @@ private :
 
    std::function<void()> m_cb; //协程入口函数
 
-   bool m_run_in_scheduler; //是否在调度器中运行
+   bool m_runInScheduler; //是否在调度器中运行
 
 public:
 	std::mutex m_mutex; //还有一个锁
